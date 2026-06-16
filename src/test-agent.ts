@@ -9,6 +9,7 @@ const testState: ReviewState = {
         +const password = "admin123";
         +const query = \`select * from users where name = '\${userInput}\';`,
     files: ["src/login.ts"],
+    fileContexts: [],
     findings: [],
     summary: "",
 

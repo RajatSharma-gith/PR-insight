@@ -9,10 +9,22 @@ export interface ReviewFinding {
     agent: string;
 }
 
+export interface FileContext {
+    filename: string;
+    patch: string;
+    status: string;
+    previousCode?: string | null;
+    newCode?: string | null;
+}
+
 export const ReviewStateAnnotation = Annotation.Root({
     prUrl: Annotation<string>,
     diff: Annotation<string>,
     files: Annotation<string[]>({
+        reducer: (left, right) => (right.length > 0 ? right : left),
+        default: () => [],
+    }),
+    fileContexts: Annotation<FileContext[]>({
         reducer: (left, right) => (right.length > 0 ? right : left),
         default: () => [],
     }),

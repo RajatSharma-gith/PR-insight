@@ -6,7 +6,7 @@ dotenv.config();
 import type { ReviewState, ReviewFinding } from "./state.ts";
 
 const model = new ChatGoogleGenerativeAI({
-    model: "gemini-2.5-flash",
+    model: "gemini-3.5-flash",
     temperature: 0.4,
     apiKey: process.env.GOOGLE_API_KEY
 });
@@ -29,6 +29,17 @@ async function runAgent(
 ): Promise<{ findings: ReviewFinding[] }> {
     const structuredModel = model.withStructuredOutput(findingsSchema);
 
+    let contextPrompt = `Review the following PR changes and provide findings in the specified format, also reporting any issues found:\n\nDiff:\n${state.diff}\n\n`;
+    
+    if (state.fileContexts && state.fileContexts.length > 0) {
+        contextPrompt += `Full Context for changed files:\n`;
+        state.fileContexts.forEach(file => {
+            contextPrompt += `--- File: ${file.filename} (Status: ${file.status}) ---\n`;
+            if (file.previousCode) contextPrompt += `[Previous Code (Main Branch)]\n${file.previousCode}\n\n`;
+            if (file.newCode) contextPrompt += `[New Code (PR Branch)]\n${file.newCode}\n\n`;
+        });
+    }
+
     const response = await structuredModel.invoke([
         {
             role: "system",
@@ -36,7 +47,7 @@ async function runAgent(
         },
         {
             role: "user",
-            content: `Review the following PR diff and provide findings in the specified format also report any issues found:\n\n${state.diff}`,
+            content: contextPrompt,
         },
     ]);
 

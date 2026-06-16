@@ -28,6 +28,7 @@ async function main(){
         prUrl,
         diff,
         files: files.map((f)=>f.filename),
+        fileContexts: files,
 
         findings: [],
         summary: "",
