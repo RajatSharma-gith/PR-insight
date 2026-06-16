@@ -1,5 +1,5 @@
 import { StateGraph } from "@langchain/langgraph";
-import { ReviewStateAnnotation } from "./state";
+import { ReviewStateAnnotation } from "./state.js";
 
 import {
   securityAgent,

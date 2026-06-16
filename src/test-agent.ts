@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { securityAgent } from "./agents";
+import { securityAgent } from "./agents.js";
 
 import type { ReviewState } from "./state";
 

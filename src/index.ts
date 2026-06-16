@@ -1,6 +1,6 @@
 import "dotenv/config";
-import { fetchPRDiff } from "./github";
-import { buildReviewGraph } from "./graph";
+import { fetchPRDiff } from "./github.js";
+import { buildReviewGraph } from "./graph.js";
 
 async function main(){
 
