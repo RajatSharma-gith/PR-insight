@@ -15,7 +15,8 @@ export default function App() {
     setResults(null);
 
     try {
-      const response = await fetch('http://localhost:3001/api/review', {
+      const apiUrl = import.meta.env.PROD ? '/api/review' : 'http://localhost:3001/api/review';
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prUrl }),

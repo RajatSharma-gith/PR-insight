@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import path from "path";
 import { fetchPRDiff } from "./github";
 import { buildReviewGraph } from "./graph";
 import type { ReviewFinding } from "./state";
@@ -52,10 +53,13 @@ app.post("/api/review", async (req, res) => {
     }
 });
 
+// Serve static files from the React frontend app
+app.use(express.static(path.resolve("client/dist")));
 
-app.get("/", (req, res)=>{
-    res.send("server is running")
-})
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve("client/dist/index.html"));
+});
+
 app.listen(port, () => {
     console.log(`🚀 Backend API Server running at http://localhost:${port}`);
 });
