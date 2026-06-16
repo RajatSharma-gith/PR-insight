@@ -3,8 +3,8 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fetchPRDiff } from "./github.js"; // Explicit .js extension for ESM
-import { buildReviewGraph } from "./graph";
-import type { ReviewFinding } from "./state";
+import { buildReviewGraph } from "./graph.js";
+import type { ReviewFinding } from "./state.js";
 
 const app = express();
 const port = process.env.PORT || 3001; // Backend on port 3001
