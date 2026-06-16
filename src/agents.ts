@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { z } from "zod";
 dotenv.config();
 
-import type { ReviewState, ReviewFinding } from "./state.ts";
+import type { ReviewState, ReviewFinding } from "./state.js";
 
 const model = new ChatGoogleGenerativeAI({
     model: "gemini-3.5-flash",

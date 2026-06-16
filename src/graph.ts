@@ -6,7 +6,7 @@ import {
   bugDetectionAgent,
   codeQualityAgent,
   summarizerAgent,
-} from "./agents";
+} from "./agents.js";
 
 export function buildReviewGraph() {
   const graph = new StateGraph(ReviewStateAnnotation)

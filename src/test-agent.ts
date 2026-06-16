@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { securityAgent } from "./agents.js";
 
-import type { ReviewState } from "./state";
+import type { ReviewState } from "./state.js";
 
 const testState: ReviewState = {
     prUrl: "https://github.com/test/test/pull/1",
