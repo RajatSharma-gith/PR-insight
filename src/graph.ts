@@ -3,6 +3,7 @@ import { ReviewStateAnnotation } from "./state.js";
 
 import {
   securityAgent,
+  changeAnalysisAgent,
   bugDetectionAgent,
   codeQualityAgent,
   summarizerAgent,
@@ -13,17 +14,20 @@ export function buildReviewGraph() {
 
     // Nodes
     .addNode("security", securityAgent)
+    .addNode("changeAnalyzer", changeAnalysisAgent)
     .addNode("bugDetector", bugDetectionAgent)
     .addNode("codeQuality", codeQualityAgent)
     .addNode("summarizer", summarizerAgent)
 
     // Start → Agents
     .addEdge("__start__", "security")
+    .addEdge("__start__", "changeAnalyzer")
     .addEdge("__start__", "bugDetector")
     .addEdge("__start__", "codeQuality")
 
     // Agents → Summarizer
     .addEdge("security", "summarizer")
+    .addEdge("changeAnalyzer", "summarizer")
     .addEdge("bugDetector", "summarizer")
     .addEdge("codeQuality", "summarizer")
 

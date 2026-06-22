@@ -7,6 +7,7 @@ export interface ReviewFinding {
     issue: string;
     suggestion: string;
     agent: string;
+    suggestedFix?: string;
 }
 
 export interface FileContext {
@@ -27,6 +28,10 @@ export const ReviewStateAnnotation = Annotation.Root({
     fileContexts: Annotation<FileContext[]>({
         reducer: (left, right) => (right.length > 0 ? right : left),
         default: () => [],
+    }),
+    changeAnalysis: Annotation<string>({
+        reducer: (_left, right) => right,
+        default: () => "",
     }),
     findings: Annotation<ReviewFinding[]>({
         reducer: (left, right) => left.concat(right),
